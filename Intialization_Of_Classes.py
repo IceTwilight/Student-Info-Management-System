@@ -96,7 +96,7 @@ class Repository:
 
 class Student:
     ''' Represent a single student '''
-    pt_hdr = ['CWID', 'Name', 'Completed Courses']
+    pt_hdr = ['CWID', 'Name', 'Major', 'Completed Courses', 'Remaining Required', 'Remaining Electives']
 
     def __init__(self, cwid, name, major):
         self._cwid = cwid
@@ -110,7 +110,8 @@ class Student:
 
     def pt_row(self):
         """ return a list of values to populate the prettyTable for this student """
-        return [self._cwid, self._name, sorted(self._courses.keys())]
+        major, passed, rem_required, rem_electives = self._major.remaining(self._courses)
+        return [self._cwid, self._name, major, sorted(passed), rem_required, rem_electives]
 
 
 class Instructor:
